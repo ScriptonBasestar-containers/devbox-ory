@@ -1,0 +1,24 @@
+services:
+  selfservice-ui:
+    image: scriptonbasestar/selfservice-ui:latest
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    ports:
+      - "8080:8080"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8081
+    depends_on:
+      - ory-kratos
+  
+  ory-kratos:
+    image: oryd/kratos:v0.6.0
+    ports:
+      - "4433:4433"
+    environment:
+      - KRATOS_SELF_SERVICE_BROWSER_DEFAULT_RETURN_TO=http://localhost:8080
+      - KRATOS_PUBLIC_URL=http://localhost:4433
+      - KRATOS_ADMIN_URL=http://localhost:4434
+      - KRATOS_SERVE_PUBLIC_PORT=4433
+      - KRATOS_SERVE_ADMIN_PORT=4434
+      - KRATOS_SERVE_PU
