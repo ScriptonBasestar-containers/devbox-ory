@@ -48,11 +48,13 @@ services:
       - intranet
 
   kratos-selfservice-ui-node:
-    # image: oryd/kratos-selfservice-ui-node:v1.3.1
-    image: scriptonbasestar/kratos-selfservice-ui-node
-    build:
-      context: ory-kratos-selfservice-ui-node
-      dockerfile: Dockerfile
+    depends_on:
+      - kratos
+    image: oryd/kratos-selfservice-ui-node:v1.3.1
+    # image: scriptonbasestar/kratos-selfservice-ui-node
+    # build:
+    #   context: ory-kratos-selfservice-ui-node
+    #   dockerfile: Dockerfile
     ports:
       - "4455:4455"
     environment:
